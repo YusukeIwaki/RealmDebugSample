@@ -9,6 +9,7 @@ import android.support.annotation.Nullable;
 import java.util.ArrayList;
 
 import io.github.yusukeiwaki.realmdebugsample.service.observer.SendMessageObserver;
+import io.realm.Realm;
 
 public class BackgroundSyncService extends Service {
 
@@ -25,6 +26,12 @@ public class BackgroundSyncService extends Service {
 
         setupListeners();
         registerListeners();
+
+        try (Realm realm = Realm.getDefaultInstance()) {
+            if (!"debug".equals(realm.getConfiguration().getRealmFileName())) {
+                stopSelf();
+            }
+        }
     }
 
     @Override
