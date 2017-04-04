@@ -36,10 +36,10 @@ public class DummyAPI {
                     }
 
                     Message newMessage = new Message();
-                    newMessage.setId(id);
-                    newMessage.setUsername(username);
-                    newMessage.setBody(body);
-                    newMessage.setTimestamp(System.currentTimeMillis());
+                    newMessage.id = id;
+                    newMessage.username = username;
+                    newMessage.body = body;
+                    newMessage.timestamp = System.currentTimeMillis();
 
                     task.setResult(newMessage);
                 } else {

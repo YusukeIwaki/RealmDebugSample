@@ -56,8 +56,8 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
                 final Message message = adapter.getItem(position);
-                final String messageId = message.getId();
-                if (message.getSyncstate() == SyncState.ERROR) {
+                final String messageId = message.id;
+                if (message.syncstate == SyncState.ERROR) {
                     new AlertDialog.Builder(MainActivity.this)
                             .setTitle("再送しますか？")
                             .setPositiveButton("再送", new DialogInterface.OnClickListener() {

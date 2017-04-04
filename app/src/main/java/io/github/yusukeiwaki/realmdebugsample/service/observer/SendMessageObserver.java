@@ -53,7 +53,7 @@ public class SendMessageObserver implements Registerable, RealmChangeListener<Re
                             .equalTo("syncstate", SyncState.SYNCING)
                             .findAll();
                     for (Message m  : pendingMessages) {
-                        m.setSyncstate(SyncState.WAIT_FOR_SYNC);
+                        m.syncstate = SyncState.WAIT_FOR_SYNC;
                     }
                 }
             });
@@ -67,9 +67,9 @@ public class SendMessageObserver implements Registerable, RealmChangeListener<Re
 
         Message targetMessage = results.get(0);
 
-        final String messageId = targetMessage.getId();
-        final String username = targetMessage.getUsername();
-        final String body = targetMessage.getBody();
+        final String messageId = targetMessage.id;
+        final String username = targetMessage.username;
+        final String body = targetMessage.body;
 
         mRealm.executeTransaction(new Realm.Transaction() {
             @Override
@@ -90,8 +90,8 @@ public class SendMessageObserver implements Registerable, RealmChangeListener<Re
                     public Object then(Task<Message> task) throws Exception {
                         Message newMessage = task.getResult();
 
-                        final String id = newMessage.getId();
-                        final long timestamp = newMessage.getTimestamp();
+                        final String id = newMessage.id;
+                        final long timestamp = newMessage.timestamp;
 
                         try (Realm realm = Realm.getDefaultInstance()){
                             realm.executeTransaction(new Realm.Transaction() {

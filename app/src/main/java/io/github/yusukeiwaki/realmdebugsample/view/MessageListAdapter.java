@@ -37,15 +37,15 @@ public class MessageListAdapter extends RealmBaseAdapter<Message> {
     }
 
     private void bindView(View itemView, Message message) {
-        int syncstate = message.getSyncstate();
+        int syncstate = message.syncstate;
 
         TextView username = (TextView) itemView.findViewById(R.id.username);
-        username.setText(message.getUsername());
+        username.setText(message.username);
 
         TextView timestamp = (TextView) itemView.findViewById(R.id.timestamp);
         if (syncstate == SyncState.SYNCED) {
             LocalDateTime dateTime =
-                    LocalDateTime.ofEpochSecond(message.getTimestamp() / 1000, 0, ZoneOffset.ofHours(9));
+                    LocalDateTime.ofEpochSecond(message.timestamp / 1000, 0, ZoneOffset.ofHours(9));
             timestamp.setText(dateTime.format(DateTimeFormatter.ISO_TIME));
         } else if (syncstate == SyncState.ERROR) {
             timestamp.setText("エラー");
@@ -54,7 +54,7 @@ public class MessageListAdapter extends RealmBaseAdapter<Message> {
         }
 
         TextView body = (TextView) itemView.findViewById(R.id.body);
-        body.setText(message.getBody());
+        body.setText(message.body);
 
         if (syncstate == SyncState.SYNCED || syncstate == SyncState.ERROR) {
             itemView.setAlpha(1.0f);
