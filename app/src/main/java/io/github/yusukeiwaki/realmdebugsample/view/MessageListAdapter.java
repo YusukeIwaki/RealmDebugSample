@@ -21,17 +21,17 @@ import io.realm.OrderedRealmCollection;
 import io.realm.RealmBaseAdapter;
 
 public class MessageListAdapter extends RealmBaseAdapter<Message> {
-    private final Context mContext;
+    private final LayoutInflater mLayoutInflater;
 
     public MessageListAdapter(@NonNull Context context, @Nullable OrderedRealmCollection<Message> data) {
         super(data);
-        mContext = context;
+        mLayoutInflater = LayoutInflater.from(context);
     }
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         if (convertView == null) {
-            ListitemMessageBinding binding = ListitemMessageBinding.inflate(LayoutInflater.from(mContext), parent, false);
+            ListitemMessageBinding binding = ListitemMessageBinding.inflate(mLayoutInflater, parent, false);
             convertView = binding.getRoot();
             convertView.setTag(R.id.dataBinding, binding);
         }
