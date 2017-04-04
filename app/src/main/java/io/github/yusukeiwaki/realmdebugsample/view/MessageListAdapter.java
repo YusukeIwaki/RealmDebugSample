@@ -3,6 +3,7 @@ package io.github.yusukeiwaki.realmdebugsample.view;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
@@ -18,14 +19,17 @@ import io.realm.OrderedRealmCollection;
 import io.realm.RealmBaseAdapter;
 
 public class MessageListAdapter extends RealmBaseAdapter<Message> {
+    private final Context mContext;
+
     public MessageListAdapter(@NonNull Context context, @Nullable OrderedRealmCollection<Message> data) {
-        super(context, data);
+        super(data);
+        mContext = context;
     }
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         if (convertView == null) {
-            convertView = inflater.inflate(R.layout.listitem_message, parent, false);
+            convertView = LayoutInflater.from(mContext).inflate(R.layout.listitem_message, parent, false);
         }
 
         bindView(convertView, getItem(position));
